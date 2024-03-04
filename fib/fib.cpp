@@ -1,14 +1,14 @@
-#include "fibo.h"
+#include "fib.h"
 #include <vector>
 #include <string>
 #include <ostream>
 
 
-Fibo::Fibo() {
+Fib::Fib() {
     val.assign(1, 0);
 }
 
-Fibo::Fibo(const string &s) {
+Fib::Fib(const string &s) {
     int n = (int) s.size();
     val.resize(n);
     for (int i = 0; i < n; i++) {
@@ -17,19 +17,19 @@ Fibo::Fibo(const string &s) {
     fix();
 }
 
-Fibo::Fibo(const Fibo& f) {
+Fib::Fib(const Fib& f) {
     val = f.val;
 }
 
-void Fibo::extend() {
+void Fib::extend() {
     val.push_back(false);
 }
 
-int Fibo::size() {
+int Fib::size() {
     return (int) val.size();
 }
 
-void Fibo::fix() {
+void Fib::fix() {
     for (int i = 0; i < ((int) val.size() - 1); i+=2) {
         if (val[i] && val[i + 1]) {
             val[i] = false;
@@ -40,7 +40,7 @@ void Fibo::fix() {
     }
 }
 
-void Fibo::set(int i) {
+void Fib::set(int i) {
     int n = (int) val.size();
     for (int j = i; j < n; j += 2) {
         if (j == (n - 1)) { extend(); n++; }
@@ -68,9 +68,9 @@ void Fibo::set(int i) {
     }
 }
 
-bool operator==(const Fibo &lhs, const Fibo &rhs) { return lhs.val == rhs.val; }
+bool operator==(const Fib &lhs, const Fib &rhs) { return lhs.val == rhs.val; }
 
-bool operator<(const Fibo &lhs, const Fibo &rhs) {
+bool operator<(const Fib &lhs, const Fib &rhs) {
     if (lhs.val.size() != rhs.val.size()) return lhs.val.size() < rhs.val.size();
     for (int i = (int) lhs.val.size(); i >= 0; i--) {
         if (lhs.val[i] && !rhs.val[i]) return true;
@@ -79,13 +79,13 @@ bool operator<(const Fibo &lhs, const Fibo &rhs) {
     return false;
 }
 
-bool operator<=(const Fibo &lhs, const Fibo &rhs) { return lhs == rhs || lhs < rhs; }
+bool operator<=(const Fib &lhs, const Fib &rhs) { return lhs == rhs || lhs < rhs; }
 
-bool operator>(const Fibo &lhs, const Fibo &rhs) { return !(lhs <= rhs); }
+bool operator>(const Fib &lhs, const Fib &rhs) { return !(lhs <= rhs); }
 
-bool operator>=(const Fibo &lhs, const Fibo &rhs) { return lhs == rhs || lhs > rhs; }
+bool operator>=(const Fib &lhs, const Fib &rhs) { return lhs == rhs || lhs > rhs; }
 
-Fibo& Fibo::operator+=(const Fibo &rhs) {
+Fib& Fib::operator+=(const Fib &rhs) {
     int n = (int) val.size();
     for (int i = 0; i < n; i++) {
         if (i >= (int) rhs.val.size()) break;
@@ -97,7 +97,7 @@ Fibo& Fibo::operator+=(const Fibo &rhs) {
     return *this;
 }
 
-Fibo& Fibo::operator&=(const Fibo &rhs) {
+Fib& Fib::operator&=(const Fib &rhs) {
     int n = (int) val.size();
     for (int i = 0; i < n; i++) {
         if (i >= (int) rhs.val.size()) val[i] = false;
@@ -106,7 +106,7 @@ Fibo& Fibo::operator&=(const Fibo &rhs) {
     return *this;
 }
 
-Fibo& Fibo::operator|=(const Fibo &rhs) {
+Fib& Fib::operator|=(const Fib &rhs) {
     if ((int) val.size() < (int) rhs.val.size()) val.resize((int) rhs.val.size(), false);
     int n = (int) val.size();
     for (int i = 0; i < n; i++) {
@@ -115,7 +115,7 @@ Fibo& Fibo::operator|=(const Fibo &rhs) {
     return *this;
 }
 
-Fibo& Fibo::operator^=(const Fibo &rhs) {
+Fib& Fib::operator^=(const Fib &rhs) {
     if ((int) val.size() < (int) rhs.val.size()) val.resize((int) rhs.val.size(), false);
     int n = (int) val.size();
     for (int i = 0; i < n; i++) {
@@ -124,7 +124,7 @@ Fibo& Fibo::operator^=(const Fibo &rhs) {
     return *this;
 }
 
-Fibo& Fibo::operator<<=(size_t n) {
+Fib& Fib::operator<<=(size_t n) {
     val.resize((int) val.size() + n, false);
     int m = (int) val.size();
     for (int i = m - 1; i >= (int) n; i--) {
@@ -134,31 +134,31 @@ Fibo& Fibo::operator<<=(size_t n) {
     return *this;
 }
 
-Fibo Fibo::operator+(const Fibo &rhs) const {
-    return Fibo(*this) += rhs;
+Fib Fib::operator+(const Fib &rhs) const {
+    return Fib(*this) += rhs;
 }
 
-Fibo Fibo::operator&(const Fibo &rhs) const {
-    return Fibo(*this) &= rhs;
+Fib Fib::operator&(const Fib &rhs) const {
+    return Fib(*this) &= rhs;
 }
 
-Fibo Fibo::operator|(const Fibo &rhs) const {
-    return Fibo(*this) |= rhs;
+Fib Fib::operator|(const Fib &rhs) const {
+    return Fib(*this) |= rhs;
 }
 
-Fibo Fibo::operator^(const Fibo &rhs) const {
-    return Fibo(*this) ^= rhs;
+Fib Fib::operator^(const Fib &rhs) const {
+    return Fib(*this) ^= rhs;
 }
 
-Fibo Fibo::operator<<(size_t n) const {
-    return Fibo(*this) <<= n;
+Fib Fib::operator<<(size_t n) const {
+    return Fib(*this) <<= n;
 }
 
-Fibo& Fibo::operator=(const Fibo& rhs) {
-    return *this = Fibo(rhs);
+Fib& Fib::operator=(const Fib& rhs) {
+    return *this = Fib(rhs);
 }
 
-ostream& Fibo::operator<<(ostream &stream) {
+ostream& Fib::operator<<(ostream &stream) {
     for (int i = 0; i < (int) val.size(); i++) {
         stream << val[i];
     }
