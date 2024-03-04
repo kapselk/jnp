@@ -2,18 +2,26 @@
 #define _FIBO_H
 
 #include <vector>
+#include <string>
+#include <ostream>
 
 using namespace std;
 
 class Fibo {
     private:
         vector<bool> val;
+        void extend();
+        void fix();
+        void set(int i);
 
     public:
         Fibo();
         Fibo(const string &s);
+        Fibo(const Fibo &f);
 
-        friend bool operator==(const Fibo&lhs, const Fibo &rhs);
+        int size();
+
+        friend bool operator==(const Fibo &lhs, const Fibo &rhs);
         friend bool operator<(const Fibo &lhs, const Fibo &rhs);
         friend bool operator<=(const Fibo &lhs, const Fibo &rhs);
         friend bool operator>(const Fibo &lhs, const Fibo &rhs);
@@ -29,10 +37,10 @@ class Fibo {
         Fibo operator&(const Fibo &rhs) const;
         Fibo operator|(const Fibo &rhs) const;
         Fibo operator^(const Fibo &rhs) const;
-        Fibo operator<<=(const size_t n) const;
+        Fibo operator<<(size_t n) const;
 
         Fibo& operator=(const Fibo& rhs);
-        ostream& operator<<(osteram &stream, const Fibo& rhs);
+        ostream& operator<<(ostream &stream);
 };
 
 #endif
